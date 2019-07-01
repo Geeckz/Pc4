@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Listado de cursos</title>
+</head>
+<body>
+
+<div class="container">
+    <h3>Listado de cursos</h3>
+    <div class="col-md-12" >
+        <a th:href="@{/courses/add}" class="btn btn-primary">Agregar curso</a>
+    </div>
+
+    <div th:switch="courses">
+        <div th:case="*">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Credits</th>
+                    <th scope="col">Professor Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <th scope="row" th:text="${course.id}"></th>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.credit}"></td>
+                    <td th:text="${course.professorName}"></td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
