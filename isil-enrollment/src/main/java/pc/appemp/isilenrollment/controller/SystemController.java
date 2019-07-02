@@ -8,15 +8,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pc.appemp.isilenrollment.model.Product;
+import pc.appemp.isilenrollment.model.Supplier;
 import pc.appemp.isilenrollment.repository.JdbcProductRepository;
+import pc.appemp.isilenrollment.repository.JdbcSupplierRepository;
 
 @Controller
 
-public class ProductController {
+public class SystemController {
 
 
     @Autowired
     JdbcProductRepository jdbcProductRepository;
+
+    @Autowired
+    JdbcSupplierRepository jdbcSupplierRepository;
 
 
     @GetMapping( {"/", "/index"})
@@ -31,7 +36,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/add")
-    public String addCourse(Model model){
+    public String addProduct(Model model){
         model.addAttribute("product", new Product());
         return "product-add";
     }
@@ -45,5 +50,30 @@ public class ProductController {
 
         return "product";
     }
+
+
+    @GetMapping("/suppliers")
+    public String getSupplierList(Model model){
+        model.addAttribute("suppliers", jdbcSupplierRepository.findAll());
+        return "supplier";
+    }
+
+    @GetMapping("/suppliers/add")
+    public String addSupplier(Model model){
+        model.addAttribute("supplier", new Supplier());
+        return "supplier-add";
+    }
+
+    @PostMapping("/suppliers/save")
+    public String saveSupplier(Supplier supplier, Model model){
+
+        jdbcSupplierRepository.create(supplier);
+
+        model.addAttribute("suppliers", jdbcSupplierRepository.findAll());
+
+        return "supplier";
+    }
+
+
 
 }
